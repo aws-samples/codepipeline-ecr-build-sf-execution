@@ -70,7 +70,6 @@ def train():
         # Write out an error file. This will be returned as the failureReason in the
         # DescribeTrainingJob result.
         trc = traceback.format_exc()
-        print('Exception during training: ' + str(e) + '\n' + trc)
         with open(os.path.join(output_path, 'failure'), 'w') as s:
             s.write('Exception during training: ' + str(e) + '\n' + trc)
         # Printing this causes the exception to be in the training job logs, as well.

@@ -247,3 +247,6 @@ other/*
 # End of https://www.gitignore.io/api/osx,linux,python,windows,pycharm,visualstudiocode
 cfn/params.json
 container/build_and_push.sh
+container/projs
+container/local_test/test_dir/model/decision-tree-model.pkl
+container/local_test/test_dir/output/success

@@ -4,6 +4,7 @@
 
 FROM ubuntu:16.04
 
+
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
          wget \
          python \
@@ -34,4 +35,3 @@ ENV PATH="/opt/program:${PATH}"
 COPY decision_trees /opt/program
 WORKDIR /opt/program
 
-ENTRYPOINT ["python2.7", "/opt/program/train"]
