@@ -1,0 +1,22 @@
+[
+    {
+      "ParameterKey": "GitHubRepo",
+      "ParameterValue": "codepipeline-ecr-build-sf-execution"
+    },
+    {
+        "ParameterKey": "GitHubBranch",
+        "ParameterValue": "master"
+      },
+      {
+        "ParameterKey": "GitHubToken",
+        "ParameterValue": ""
+      },
+      {
+        "ParameterKey": "GitHubUser",
+        "ParameterValue": ""
+      },
+      {
+        "ParameterKey": "MlOpsStepFunctionArn",
+        "ParameterValue": ""
+      }
+]
