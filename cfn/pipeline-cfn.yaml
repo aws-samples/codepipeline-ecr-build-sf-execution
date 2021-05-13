@@ -108,6 +108,7 @@ Resources:
                 - dt=`date '+%m-%d-%Y-%H-%M-%S'`
                 - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)-${dt}"                
                 - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
+                - echo "IMAGE_URI=${IMAGE_URI}"
             build:
               commands:
                 - cd container
