@@ -9,14 +9,14 @@
       },
       {
         "ParameterKey": "GitHubToken",
-        "ParameterValue": ""
+        "ParameterValue": "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"
       },
       {
         "ParameterKey": "GitHubUser",
-        "ParameterValue": ""
+        "ParameterValue": "USYD-jqia9055-Lucas"
       },
       {
         "ParameterKey": "MlOpsStepFunctionArn",
-        "ParameterValue": ""
+        "ParameterValue": "arn:aws:states:ap-southeast-2:191104287795:stateMachine:MLOpsStepFunction-191104287795"
       }
 ]
