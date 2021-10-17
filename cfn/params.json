@@ -2,21 +2,5 @@
     {
       "ParameterKey": "GitHubRepo",
       "ParameterValue": "codepipeline-ecr-build-sf-execution"
-    },
-    {
-        "ParameterKey": "GitHubBranch",
-        "ParameterValue": "main"
-    },
-    {
-      "ParameterKey": "GitHubToken",
-      "ParameterValue": "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"
-    },
-    {
-      "ParameterKey": "GitHubUser",
-      "ParameterValue": "USYD-jqia9055-Lucas"
-    },
-    {
-      "ParameterKey": "MlOpsStepFunctionArn",
-      "ParameterValue": "arn:aws:states:ap-southeast-2:191104287795:stateMachine:MLOpsStepFunction-191104287795"
     }
 ]
