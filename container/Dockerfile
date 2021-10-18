@@ -4,6 +4,8 @@
 
 FROM public.ecr.aws/lts/ubuntu:20.04
 
+# originally apk add make but changed to apt-get for current docker image
+RUN apt-get make
 
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
          wget \
