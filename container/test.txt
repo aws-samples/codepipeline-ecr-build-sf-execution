@@ -4,3 +4,4 @@ commit
 committed
 testingForCommit
 testing the 1st step in StepFuncton
+test full workflow in AWS
