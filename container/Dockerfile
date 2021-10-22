@@ -8,6 +8,7 @@ FROM public.ecr.aws/lts/ubuntu:20.04
 RUN echo 'testing'
 
 RUN pwd
+RUN ls
 
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
          wget \
