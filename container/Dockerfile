@@ -4,7 +4,9 @@
 
 FROM public.ecr.aws/lts/ubuntu:20.04
 
-# originally apk add make but changed to apt-get for current docker image
+# check python version
+RUN echo 'testing'
+RUN python --version
 
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
          wget \
@@ -12,6 +14,9 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
          nginx \
          ca-certificates \
     && rm -rf /var/lib/apt/lists/*
+    
+RUN echo 'testing1'
+RUN python --version
 
 # Here we get all python packages.
 # There's substantial overlap between scipy and numpy that we eliminate by
