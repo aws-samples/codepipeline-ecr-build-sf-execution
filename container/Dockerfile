@@ -7,6 +7,8 @@ FROM public.ecr.aws/lts/ubuntu:20.04
 # check python version
 RUN echo 'testing'
 
+RUN pwd
+
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
          wget \
          python \
