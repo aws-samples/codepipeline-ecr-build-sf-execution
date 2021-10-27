@@ -30,7 +30,7 @@ RUN pip install torch
 RUN pip install transformers
 
 RUN pip install flask
-RUN pip instal gevent==1.5.0
+RUN pip install gevent==1.5.0
 RUN pip install gunicorn
 
 # Set some environment variables. PYTHONUNBUFFERED keeps Python from buffering our standard
