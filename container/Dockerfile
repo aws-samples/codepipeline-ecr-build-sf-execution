@@ -11,7 +11,7 @@ RUN apt install -y python3.7
 # install pip 
 RUN apt install -y python3-pip
 
-RUN apt-get install -y --no-install-recommends wget nginx ca-certificates
+RUN apt-get install -y --no-install-recommends nginx ca-certificates
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN python3.7 -m pip install langid
