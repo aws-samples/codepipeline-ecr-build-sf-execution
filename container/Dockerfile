@@ -8,14 +8,14 @@ FROM public.ecr.aws/lts/ubuntu:20.04
 
 RUN apt update
 
-RUN apt install software-properties-common
+RUN apt install -y software-properties-common
 
 RUN add-apt-repository ppa:deadsnakes/ppa
 
-RUN apt install python3.7
+RUN apt install -y python3.7
 
 # install pip 
-RUN apt install python3-pip
+RUN apt install -y python3-pip
 
 RUN apt-get install -y --no-install-recommends wget nginx ca-certificates
 RUN rm -rf /var/lib/apt/lists/*
