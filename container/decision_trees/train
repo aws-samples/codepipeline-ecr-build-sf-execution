@@ -33,6 +33,12 @@ param_path = os.path.join(prefix, 'input/config/hyperparameters.json')
 channel_name='training'
 training_path = os.path.join(input_path, channel_name)
 
+print(prefix)
+print(input_path)
+print(output_path)
+print(model_path)
+print(param_path)
+
 # The function to execute the training.
 def train():
     print('Starting the training.')
