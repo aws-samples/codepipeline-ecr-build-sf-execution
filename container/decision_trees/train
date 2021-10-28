@@ -43,6 +43,7 @@ print(param_path)
 print('*****')
 print(training_path)
 print('*****')
+print('111')
 
 # The function to execute the training.
 def train():
