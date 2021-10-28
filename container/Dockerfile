@@ -26,6 +26,7 @@ RUN python3.7 -m pip install flask
 RUN python3.7 -m pip install gevent==1.5.0
 RUN python3.7 -m pip install gunicorn
 RUN python3.7 -m pip install sklearn
+RUN python3.7 -m pip install gensim
 
 # Set some environment variables. PYTHONUNBUFFERED keeps Python from buffering our standard
 # output stream, which means that logs can be delivered to the user quickly. PYTHONDONTWRITEBYTECODE
