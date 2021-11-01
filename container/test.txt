@@ -7,4 +7,4 @@ run again to get the new model
 testing Code pipeline
 
 start
-
+test training path
