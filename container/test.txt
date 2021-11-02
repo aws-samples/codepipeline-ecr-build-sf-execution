@@ -1,10 +1,1 @@
-testing requirements.txt
-
-run again to get the new model
-
-
-
-testing Code pipeline
-
-start
-test training path
+start to test for reading the xlsx file.
