@@ -66,15 +66,15 @@ def train():
 
         # Take the set of files and read them all into a single pandas dataframe
         input_files = [ os.path.join(training_path, file) for file in os.listdir(training_path) ]
-        data1 = pd.read_excel('training.xlsx','first_1k',encoding='unicode_escape')
+        data1 = pd.read_excel('training.xlsx','first_1k')
         data1.rename(columns = {'label':'class'}, inplace = True)
 
-        data2 = pd.read_excel('training.xlsx','second_expanded',encoding='unicode_escape')
+        data2 = pd.read_excel('training.xlsx','second_expanded')
         data = pd.concat([data1, data2])
 
         data.rename(columns = {'Unnamed: 0':'id'}, inplace = True)
 
-        data3 = pd.read_excel('training.xlsx','listings_summary',encoding='unicode_escape')
+        data3 = pd.read_excel('training.xlsx','listings_summary')
         data3 = data3[['id', 'host_name']]
         data = pd.merge(data, data3, left_on='listing_id', right_on = 'id',how = 'left')
 
@@ -128,195 +128,188 @@ def train():
         print('stage 3 done ')
 
         #lemmatization: firstly treat all words as 'v' to convert words like 'ate', 'met'
-#         nltk.download('wordnet')
-#         nltk.download('averaged_perceptron_tagger')
+        nltk.download('wordnet')
+        nltk.download('averaged_perceptron_tagger')
 
-#         wnl = WordNetLemmatizer()
-#         lemmated_ = []
-#         for filters in filtered:
-#             sent = []
-#             for word in filters:
-#                 sent.append(wnl.lemmatize(word, 'v'))
-#             lemmated_.append(sent)
+        wnl = WordNetLemmatizer()
+        lemmated_ = []
+        for filters in filtered:
+            sent = []
+            for word in filters:
+                sent.append(wnl.lemmatize(word, 'v'))
+            lemmated_.append(sent)
 
-#         #secondly use POS to convert other words
-#         def get_wordnet_pos(tag):
-#             if tag.startswith('J'):
-#                 return wordnet.ADJ
-#             elif tag.startswith('V'):
-#                 return wordnet.VERB
-#             elif tag.startswith('N'):
-#                 return wordnet.NOUN
-#             elif tag.startswith('R'):
-#                 return wordnet.ADV
-#             return None
+        #secondly use POS to convert other words
+        def get_wordnet_pos(tag):
+            if tag.startswith('J'):
+                return wordnet.ADJ
+            elif tag.startswith('V'):
+                return wordnet.VERB
+            elif tag.startswith('N'):
+                return wordnet.NOUN
+            elif tag.startswith('R'):
+                return wordnet.ADV
+            return None
            
             
-#         print('stage 4 done ')
+        print('stage 4 done ')
 
-#         lemmated = []
-#         for lemmate in lemmated_:
+        lemmated = []
+        for lemmate in lemmated_:
 
-#             tagged = nltk.pos_tag(lemmate)
+            tagged = nltk.pos_tag(lemmate)
 
-#             lemmas_sent = []
-#             for tag in tagged:
-#                 wordnet_pos = get_wordnet_pos(tag[1]) or wordnet.NOUN
-#                 lemmas_sent.append(wnl.lemmatize(tag[0], pos = wordnet_pos).lower()) #convert into lower case
+            lemmas_sent = []
+            for tag in tagged:
+                wordnet_pos = get_wordnet_pos(tag[1]) or wordnet.NOUN
+                lemmas_sent.append(wnl.lemmatize(tag[0], pos = wordnet_pos).lower()) #convert into lower case
 
-#             lemmated.append(lemmas_sent)
+            lemmated.append(lemmas_sent)
 
-#         #the output is lemmated result, if you want to change output, back to previous result like filtered
-#         #same to other code chunk
-#         output = {'review': pd.Series(lemmated), 'class': pd.Series(label_en)}
-#         output = pd.DataFrame(output)
-#         output['class'] = output['class'].astype(int)
+        #the output is lemmated result, if you want to change output, back to previous result like filtered
+        #same to other code chunk
+        output = {'review': pd.Series(lemmated), 'class': pd.Series(label_en)}
+        output = pd.DataFrame(output)
+        output['class'] = output['class'].astype(int)
 
-#         import collections, numpy
+        import collections, numpy
 
-#         print('stage 4 done ')
+        print('stage 4 done ')
 
-#         pt_unique, pt_counts = numpy.unique(output['class'], return_counts=True)
-#         dict(zip(pt_unique, pt_counts))
-#         output=output
-#         for i in range(len(output.review)):
-#           if output['class'][i] == 1:
-#             output['class'][i] = '0'
-#           else:
-#             output['class'][i] = '1'
+        pt_unique, pt_counts = numpy.unique(output['class'], return_counts=True)
+        dict(zip(pt_unique, pt_counts))
+        output=output
+        for i in range(len(output.review)):
+          if output['class'][i] == 1:
+            output['class'][i] = '0'
+          else:
+            output['class'][i] = '1'
 
-#         import gensim.downloader as api
-#         from tqdm import tqdm
+        import gensim.downloader as api
+        from tqdm import tqdm
 
-#         # load pre-trained model
-#         word_emb_model = api.load('glove-wiki-gigaword-100')
+        # load pre-trained model
+        word_emb_model = api.load('glove-wiki-gigaword-100')
 
-#         pretrained_w2v_size = 100
+        pretrained_w2v_size = 100
 
-#         word_set = set() 
-#         for sent in output.review:
-#             for word in sent:
-#                 word_set.add(word)
-#         word_set.add('[PAD]')
-#         word_set.add('[UNKNOWN]')
+        word_set = set() 
+        for sent in output.review:
+            for word in sent:
+                word_set.add(word)
+        word_set.add('[PAD]')
+        word_set.add('[UNKNOWN]')
 
-#         word_list = list(word_set) 
-#         word_list.sort()
+        word_list = list(word_set) 
+        word_list.sort()
         
-#         print('stage 5 done ')
+        print('stage 5 done ')
 
-#         word_index = {}
-#         ind = 0
-#         for word in word_list:
-#             word_index[word] = ind
-#             ind += 1
+        word_index = {}
+        ind = 0
+        for word in word_list:
+            word_index[word] = ind
+            ind += 1
 
-#         seq_length = 50
+        seq_length = 50
 
-#         def encode_and_add_padding(sentences, seq_length, word_index):
-#             sent_encoded = []
-#             for sent in sentences:
-#                 temp_encoded = [word_index[word] if word in word_index else word_index['[UNKOWN]'] for word in sent]
-#                 if len(temp_encoded) < seq_length:
-#                     temp_encoded += [word_index['[PAD]']] * (seq_length - len(temp_encoded))
-#                 else:
-#                     temp_encoded = temp_encoded[:seq_length]
-#                 sent_encoded.append(temp_encoded)
-#             return sent_encoded
+        def encode_and_add_padding(sentences, seq_length, word_index):
+            sent_encoded = []
+            for sent in sentences:
+                temp_encoded = [word_index[word] if word in word_index else word_index['[UNKOWN]'] for word in sent]
+                if len(temp_encoded) < seq_length:
+                    temp_encoded += [word_index['[PAD]']] * (seq_length - len(temp_encoded))
+                else:
+                    temp_encoded = temp_encoded[:seq_length]
+                sent_encoded.append(temp_encoded)
+            return sent_encoded
 
-#         print('stage 5 done ')
+        print('stage 5 done ')
 
-#         REVIEW_encoded = encode_and_add_padding(output.review, seq_length, word_index )
+        REVIEW_encoded = encode_and_add_padding(output.review, seq_length, word_index )
 
-#         import numpy as np
-#         emb_dim = word_emb_model.vector_size
+        import numpy as np
+        emb_dim = word_emb_model.vector_size
 
-#         emb_table = []
-#         for i, word in enumerate(word_list):
-#             if word in word_emb_model:
-#                 emb_table.append(word_emb_model[word])
-#             else:
-#                 emb_table.append([0]*emb_dim)
-#         emb_table = np.array(emb_table)
+        emb_table = []
+        for i, word in enumerate(word_list):
+            if word in word_emb_model:
+                emb_table.append(word_emb_model[word])
+            else:
+                emb_table.append([0]*emb_dim)
+        emb_table = np.array(emb_table)
 
-#         from sklearn.model_selection import train_test_split
-#         text_train,text_test,label_train,label_test = train_test_split(REVIEW_encoded,output['class'],test_size=0.25,random_state=1)
+        from sklearn.model_selection import train_test_split
+        text_train,text_test,label_train,label_test = train_test_split(REVIEW_encoded,output['class'],test_size=0.25,random_state=1)
 
-#         vocab_size = len(word_list)
-#         unique_labels = np.unique(output['class'])
-#         n_class = len(unique_labels)
-#         n_hidden = 128
-#         learning_rate = 0.001
-#         total_epoch = 10
+        vocab_size = len(word_list)
+        unique_labels = np.unique(output['class'])
+        n_class = len(unique_labels)
+        n_hidden = 128
+        learning_rate = 0.001
+        total_epoch = 10
 
-#         import torch
-#         import torch.nn as nn
-#         import torch.nn.functional as F
-#         import torch.optim as optim
-#         from sklearn.metrics import accuracy_score
+        import torch
+        import torch.nn as nn
+        import torch.nn.functional as F
+        import torch.optim as optim
+        from sklearn.metrics import accuracy_score
 
-#         print('stage 6 done ')
+        print('stage 6 done ')
 
-#         import torch
-#         #You can enable GPU here (cuda); or just CPU
-#         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        #You can enable GPU here (cuda); or just CPU
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-#         import numpy as np
+        class Model(nn.Module):
+            def __init__(self):
+                super(Model, self).__init__()
+                self.emb = nn.Embedding(vocab_size, emb_dim)
+                self.emb.weight.data.copy_(torch.from_numpy(emb_table))
+                self.emb.weight.requires_grad = False
+                self.lstm = nn.LSTM(emb_dim, n_hidden, num_layers=2, batch_first =True, dropout=0.2)
+                self.linear = nn.Linear(n_hidden,n_class)
 
-#         import torch.nn as nn
-#         import torch.nn.functional as F
-#         import torch.optim as optim
-#         from sklearn.metrics import accuracy_score
+            def forward(self, x):
+                x = self.emb(x)
+                x,_ = self.lstm(x)
+                x = self.linear(x[:,-1,:])
+                return x
 
-#         class Model(nn.Module):
-#             def __init__(self):
-#                 super(Model, self).__init__()
-#                 self.emb = nn.Embedding(vocab_size, emb_dim)
-#                 self.emb.weight.data.copy_(torch.from_numpy(emb_table))
-#                 self.emb.weight.requires_grad = False
-#                 self.lstm = nn.LSTM(emb_dim, n_hidden, num_layers=2, batch_first =True, dropout=0.2)
-#                 self.linear = nn.Linear(n_hidden,n_class)
+        best_train_loss = 100
+        best_epoch=0
 
-#             def forward(self, x):
-#                 x = self.emb(x)
-#                 x,_ = self.lstm(x)
-#                 x = self.linear(x[:,-1,:])
-#                 return x
+        print('before to device')
+        model = Model().to(device)
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
-#         best_train_loss = 100
-#         best_epoch=0
+        input_torch = torch.from_numpy(np.array(text_train)).to(device)
+        target_torch = torch.from_numpy(np.array(label_train)).view(-1).to(device)
 
-#         print('before to device')
-#         model = Model().to(device)
-#         criterion = nn.CrossEntropyLoss()
-#         optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+        # range(total_epoch)
+        
+        for epoch in range(1):  
 
-#         input_torch = torch.from_numpy(np.array(text_train)).to(device)
-#         target_torch = torch.from_numpy(np.array(label_train)).view(-1).to(device)
+            model.train()
+            optimizer.zero_grad()
+            outputs = model(input_torch) 
+            loss = criterion(outputs, target_torch)
+            loss.backward()
+            optimizer.step()
 
+            predicted = torch.argmax(outputs, -1)
+            acc= accuracy_score(predicted.cpu().numpy(),target_torch.cpu().numpy())
 
-#         for epoch in range(total_epoch):  
-
-#             model.train()
-#             optimizer.zero_grad()
-#             outputs = model(input_torch) 
-#             loss = criterion(outputs, target_torch)
-#             loss.backward()
-#             optimizer.step()
-
-#             predicted = torch.argmax(outputs, -1)
-#             acc= accuracy_score(predicted.cpu().numpy(),target_torch.cpu().numpy())
-
-#             print('Epoch: %d, loss: %.5f, train_acc: %.2f' %(epoch + 1, loss.item(), acc))
-#             if loss.item() < best_train_loss:
-#               torch.save(model.state_dict(), 'best-LSTM-model-parameters.pt') 
-#               best_train_loss = loss.item()
-#               print('model updated')
-#               best_epoch=epoch+1   
+            print('Epoch: %d, loss: %.5f, train_acc: %.2f' %(epoch + 1, loss.item(), acc))
+            if loss.item() < best_train_loss:
+              torch.save(model.state_dict(), 'best-LSTM-model-parameters.pt') 
+              best_train_loss = loss.item()
+              print('model updated')
+              best_epoch=epoch+1   
 
 
 
-#         print('Finished Training')
+        print('Finished Training')
 
 # #         lstm_model=Model().to(device)
 # #         lstm_model.load_state_dict(torch.load('best-LSTM-model-parameters.pt'))
