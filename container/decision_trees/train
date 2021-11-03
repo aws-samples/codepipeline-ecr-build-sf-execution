@@ -12,7 +12,7 @@ import json
 import pickle
 import sys
 import traceback
-
+import xlrd
 
 print('testing message1')
 import re
