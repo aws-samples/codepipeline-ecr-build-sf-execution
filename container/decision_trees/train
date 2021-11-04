@@ -76,15 +76,15 @@ def train():
         
         
         print(input_files[0])
-        data1 = pd.read_excel(input_files[0],'first_1k')
+        data1 = pd.read_excel(input_files[0],'first_1k',engine='openpyxl')
         data1.rename(columns = {'label':'class'}, inplace = True)
 
-        data2 = pd.read_excel(input_files[0],'second_expanded')
+        data2 = pd.read_excel(input_files[0],'second_expanded',engine='openpyxl')
         data = pd.concat([data1, data2])
 
         data.rename(columns = {'Unnamed: 0':'id'}, inplace = True)
 
-        data3 = pd.read_excel(input_files[0],'listings_summary')
+        data3 = pd.read_excel(input_files[0],'listings_summary',engine='openpyxl')
         data3 = data3[['id', 'host_name']]
         data = pd.merge(data, data3, left_on='listing_id', right_on = 'id',how = 'left')
 
