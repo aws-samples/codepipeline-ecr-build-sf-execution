@@ -180,6 +180,12 @@ def train():
         #same to other code chunk
         output = {'review': pd.Series(lemmated), 'class': pd.Series(label_en)}
         output = pd.DataFrame(output)
+        
+        print(output.head())
+        print('------')
+        print(len(output['class))
+        print('------')
+            
         output['class'] = output['class'].astype(int)
 
         import collections, numpy
