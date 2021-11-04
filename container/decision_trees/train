@@ -188,8 +188,8 @@ def train():
         
         # added fill na with 0 to handle the error
         
-        output['class'] = output['class'].fillna('0.0')
-        
+        output['class'] = output['class'].fillna(0)
+        print('fixed')
         output['class'] = output['class'].astype(int)
 
         import collections, numpy
