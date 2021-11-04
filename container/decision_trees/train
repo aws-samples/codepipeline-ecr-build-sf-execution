@@ -183,9 +183,9 @@ def train():
         
         print(output.head())
         print('------')
-        print(len(output['class))
+        print(len(output['class']))
         print('------')
-            
+        
         output['class'] = output['class'].astype(int)
 
         import collections, numpy
