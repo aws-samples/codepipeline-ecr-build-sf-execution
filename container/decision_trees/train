@@ -323,8 +323,8 @@ def train():
             print('Epoch: %d, loss: %.5f, train_acc: %.2f' %(epoch + 1, loss.item(), acc))
             if loss.item() < best_train_loss:
               #torch.save(model.state_dict(), 'best-LSTM-model-parameters.pt') 
-              with open(os.path.join(model_path, 'best-LSTM-model-parameters.pkl'), 'w') as out:
-                pickle.dump(model, out)
+              with open(os.path.join(model_path, 'best-LSTM-model-parameters.pkl'), 'wb') as out:
+                pickle.dump(model.state_dict(), out)
            
               best_train_loss = loss.item()
               print('model updated')
