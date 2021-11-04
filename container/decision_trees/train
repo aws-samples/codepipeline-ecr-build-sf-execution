@@ -21,7 +21,6 @@ import nltk
 import langid
 import emoji
 import pandas as pd
-import numpy as np
 from langdetect import detect
 from nltk.tokenize import word_tokenize, sent_tokenize, TweetTokenizer
 from nltk.stem import WordNetLemmatizer
@@ -112,6 +111,7 @@ def train():
             if langid.classify(corpus[i])[0] != 'en':
                 del_list_li.append(i)
 
+        import numpy as np
         #delete non english sents
         corpus_en = np.delete(corpus, del_list_li).tolist()
         label_en = np.delete(label, del_list_li).tolist()
