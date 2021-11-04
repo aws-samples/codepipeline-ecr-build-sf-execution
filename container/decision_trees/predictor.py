@@ -6,12 +6,11 @@ from __future__ import print_function
 import os
 import json
 import pickle
-import StringIO
 import sys
 import signal
 import traceback
-
 import flask
+import io
 
 import pandas as pd
 
@@ -27,13 +26,16 @@ class ScoringService(object):
     @classmethod
     def get_model(cls):
         """Get the model object for this instance, loading it if it's not already loaded."""
+        print('test get model')
         if cls.model == None:
-            with open(os.path.join(model_path, 'decision-tree-model.pkl'), 'r') as inp:
+            #with open(os.path.join(model_path, 'decision-tree-model.pkl'), 'r') as inp:
+            with open(os.path.join(model_path, 'best-LSTM-model-parameters.pkl'), 'r') as inp:
                 cls.model = pickle.load(inp)
         return cls.model
 
     @classmethod
     def predict(cls, input):
+        print('test predict')
         """For the input, do the predictions and return them.
 
         Args:
@@ -49,6 +51,7 @@ app = flask.Flask(__name__)
 def ping():
     """Determine if the container is working and healthy. In this sample container, we declare
     it healthy if we can load the model successfully."""
+    print('testing ping()')
     health = ScoringService.get_model() is not None  # You can insert a health check here
 
     status = 200 if health else 404
@@ -61,11 +64,11 @@ def transformation():
     just means one prediction per line, since there's a single column.
     """
     data = None
-
+    print('testing transformation')
     # Convert from CSV to pandas
     if flask.request.content_type == 'text/csv':
         data = flask.request.data.decode('utf-8')
-        s = StringIO.StringIO(data)
+        s = io.StringIO(data)
         data = pd.read_csv(s, header=None)
     else:
         return flask.Response(response='This predictor only supports CSV data', status=415, mimetype='text/plain')
@@ -76,7 +79,7 @@ def transformation():
     predictions = ScoringService.predict(data)
 
     # Convert from numpy back to CSV
-    out = StringIO.StringIO()
+    out = io.StringIO()
     pd.DataFrame({'results':predictions}).to_csv(out, header=False, index=False)
     result = out.getvalue()
 
