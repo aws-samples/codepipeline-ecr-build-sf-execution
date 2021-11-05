@@ -26,7 +26,7 @@ class ScoringService(object):
     @classmethod
     def get_model(cls):
         """Get the model object for this instance, loading it if it's not already loaded."""
-        print('test get model')
+        print('test get model -- test+1')
         if cls.model == None:
             #with open(os.path.join(model_path, 'decision-tree-model.pkl'), 'r') as inp:
             with open(os.path.join(model_path, 'best-LSTM-model-parameters.pkl'), 'r') as inp:
