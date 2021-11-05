@@ -27,8 +27,12 @@ RUN python3.7 -m pip install flask
 #RUN python3.7 -m pip install gevent==1.5.0
 #RUN python3.7 -m pip install gunicorn
 
-RUN python3.7 -m pip install gevent==1.3.4
-RUN python3.7 -m pip install gunicorn==19.9.0
+#RUN python3.7 -m pip install gevent==1.3.4
+#RUN python3.7 -m pip install gunicorn==19.9.0
+
+
+RUN python3.7 -m pip install gevent==20.6.2
+RUN python3.7 -m pip install gunicorn==20.0.4
 RUN python3.7 -m pip install sklearn
 RUN python3.7 -m pip install gensim
 RUN python3.7 -m pip install xlrd
