@@ -23,8 +23,12 @@ RUN python3.7 -m pip install numpy==1.19.5
 RUN python3.7 -m pip install torch
 RUN python3.7 -m pip install transformers
 RUN python3.7 -m pip install flask
-RUN python3.7 -m pip install gevent==1.5.0
-RUN python3.7 -m pip install gunicorn
+#previos versions for package gevent and gunicorn
+#RUN python3.7 -m pip install gevent==1.5.0
+#RUN python3.7 -m pip install gunicorn
+
+RUN python3.7 -m pip install gevent==1.3.4
+RUN python3.7 -m pip install gunicorn==19.9.0
 RUN python3.7 -m pip install sklearn
 RUN python3.7 -m pip install gensim
 RUN python3.7 -m pip install xlrd
