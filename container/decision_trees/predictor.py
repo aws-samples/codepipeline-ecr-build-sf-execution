@@ -29,7 +29,7 @@ class ScoringService(object):
         print('test get model -- test+1')
         if cls.model == None:
             #with open(os.path.join(model_path, 'decision-tree-model.pkl'), 'r') as inp:
-            with open(os.path.join(model_path, 'best-LSTM-model-parameters.pkl'), 'r') as inp:
+            with open(os.path.join(model_path, 'best-LSTM-model-parameters.pkl'), 'rb') as inp:
                 cls.model = pickle.load(inp)
         return cls.model
 
