@@ -327,8 +327,8 @@ def train():
                 #pickle.dump(model, out)
                 
                 #torch.save(model, 'save/to/path/model.pt'﻿)
-                
-              torch.save(model, os.path.join(model_path, 'best-LSTM-model-parameters.pt'))
+              
+              torch.save(model, 'best-LSTM-model-parameters.pt')
             
               best_train_loss = loss.item()
               print('model updated')
