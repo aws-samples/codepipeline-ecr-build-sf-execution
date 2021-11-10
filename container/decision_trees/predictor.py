@@ -35,9 +35,9 @@ class ScoringService(object):
             #the_model = torch.load(os.path.join(model_path, 'best-LSTM-model-parameters.pt'))
         #return cls.model
         
-        loaded_trace = torch.jit.load(os.path.join(model_path, 'best-LSTM-model-parameters.pth'))
+            cls.model = torch.jit.load(os.path.join(model_path, 'best-LSTM-model-parameters.pth'))
         
-        return loaded_trace
+        return cls.model
 
     @classmethod
     def predict(cls, input):
