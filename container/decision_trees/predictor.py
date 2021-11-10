@@ -122,7 +122,7 @@ def transformation():
           
     # Convert from numpy back to CSV
     out = io.StringIO()
-    pd.DataFrame({'results':predictions}).to_csv(out, header=False, index=False)
+    pd.DataFrame({'results':predictions[0]}).to_csv(out, header=False, index=False)
     result = out.getvalue()
 
     return flask.Response(response=result, status=200, mimetype='text/csv')
