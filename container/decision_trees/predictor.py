@@ -32,9 +32,12 @@ class ScoringService(object):
             #with open(os.path.join(model_path, 'decision-tree-model.pkl'), 'r') as inp:
         #    with open(os.path.join(model_path, 'best-LSTM-model-parameters.pkl'), 'rb') as inp:
         #       cls.model = pickle.load(inp)
-            the_model = torch.load(os.path.join(model_path, 'best-LSTM-model-parameters.pt'))
+            #the_model = torch.load(os.path.join(model_path, 'best-LSTM-model-parameters.pt'))
         #return cls.model
-        return the_model
+        
+        loaded_trace = torch.jit.load(os.path.join(model_path, 'best-LSTM-model-parameters.pth'))
+        
+        return loaded_trace
 
     @classmethod
     def predict(cls, input):
@@ -45,8 +48,14 @@ class ScoringService(object):
             input (a pandas dataframe): The data on which to do the predictions. There will be
                 one prediction per row in the dataframe"""
         clf = cls.get_model()
-        return clf.predict(input)
+        #return clf.predict(input)
+        x=torch.from_numpy(np.array(input)).to(device)
 
+        with torch.no_grad():
+            result = clf(x)
+        
+        return result
+    
 # The flask app for serving predictions
 app = flask.Flask(__name__)
 
