@@ -65,7 +65,9 @@ class ScoringService(object):
         
         #return clf.predict(input)
         
+        
         try:
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             x=torch.from_numpy(np.array(test_input)).to(device)
         except Exception as error:
             print('Caught this error: ' + repr(error))
