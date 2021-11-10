@@ -116,9 +116,9 @@ def transformation():
     # Do the prediction
     predictions = ScoringService.predict(data)
     
-    print('*******")
+    print('*******')
     print(predictions)
-    print('*******")
+    print('*******')
           
     # Convert from numpy back to CSV
     out = io.StringIO()
