@@ -284,7 +284,7 @@ def train():
             def __init__(self):
                 super(Model, self).__init__()
                 self.emb = nn.Embedding(vocab_size, emb_dim)
-                self.emb.weight.data.copy_(torch.from_numpy(emb_table))
+                self.emb.weight.data.copy_(tor`ch.from_numpy(emb_table))
                 self.emb.weight.requires_grad = False
                 self.lstm = nn.LSTM(emb_dim, n_hidden, num_layers=2, batch_first =True, dropout=0.2)
                 self.linear = nn.Linear(n_hidden,n_class)
@@ -308,7 +308,7 @@ def train():
 
         # range(total_epoch)
         
-        for epoch in range(1):  
+        for epoch in range(1):
 
             model.train()
             optimizer.zero_grad()
@@ -325,11 +325,17 @@ def train():
               #torch.save(model.state_dict(), 'best-LSTM-model-parameters.pt') 
               #with open(os.path.join(model_path, 'best-LSTM-model-parameters.pkl'), 'wb') as out:
                 #pickle.dump(model, out)
+      
+              x0=np.reshape(text_test[0], (1,seq_length))
+              x=torch.from_numpy(x0).to(device)
+              with torch.no_grad():
+                print(model(x))
+                traced_cell = torch.jit.trace(Model(), (x))
+
+              torch.jit.save(traced_cell, os.path.join(model_path, 'best-LSTM-model-parameters.pth'))
                 
-                #torch.save(model, 'save/to/path/model.pt'﻿)
+              #torch.save(model, 'save/to/path/model.pt'﻿)
               
-              torch.save(model, 'best-LSTM-model-parameters.pt')
-            
               best_train_loss = loss.item()
               print('model updated')
               best_epoch=epoch+1   
