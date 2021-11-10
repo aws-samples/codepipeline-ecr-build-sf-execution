@@ -115,7 +115,11 @@ def transformation():
 
     # Do the prediction
     predictions = ScoringService.predict(data)
-
+    
+    print('*******")
+    print(predictions)
+    print('*******")
+          
     # Convert from numpy back to CSV
     out = io.StringIO()
     pd.DataFrame({'results':predictions}).to_csv(out, header=False, index=False)
