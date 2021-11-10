@@ -47,14 +47,27 @@ class ScoringService(object):
         Args:
             input (a pandas dataframe): The data on which to do the predictions. There will be
                 one prediction per row in the dataframe"""
-        clf = cls.get_model()
-        #return clf.predict(input)
-        x=torch.from_numpy(np.array(input)).to(device)
-
-        with torch.no_grad():
-            result = clf(x)
         
-        return result
+        try:
+            clf = cls.get_model()
+        except:
+            print('did not get the model')
+            
+        
+        #return clf.predict(input)
+        
+        try:
+            x=torch.from_numpy(np.array(input)).to(device)
+        except:
+            print('error when generating input')
+        
+        try:
+            with torch.no_grad():
+                result = clf(x)
+        except:
+            print('error when returing results for prediction')
+            
+        return '1'
     
 # The flask app for serving predictions
 app = flask.Flask(__name__)
