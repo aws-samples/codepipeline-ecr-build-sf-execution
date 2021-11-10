@@ -52,12 +52,19 @@ class ScoringService(object):
             clf = cls.get_model()
         except:
             print('did not get the model')
-            
+        
+        print(input)
+        
+        test_input=[[2779, 4496, 1744, 3480,  674,   24,   24,   24,   24,   24,   24,
+          24,   24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+          24,   24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+          24,   24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+          24,   24,   24,   24,   24,   24]]
         
         #return clf.predict(input)
         
         try:
-            x=torch.from_numpy(np.array(input)).to(device)
+            x=torch.from_numpy(np.array(test_input)).to(device)
         except:
             print('error when generating input')
         
@@ -67,7 +74,7 @@ class ScoringService(object):
         except:
             print('error when returing results for prediction')
             
-        return '1'
+        return result
     
 # The flask app for serving predictions
 app = flask.Flask(__name__)
