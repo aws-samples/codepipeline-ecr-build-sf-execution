@@ -67,13 +67,15 @@ class ScoringService(object):
         
         try:
             x=torch.from_numpy(np.array(test_input)).to(device)
-        except:
+        except Exception as error:
+            print('Caught this error: ' + repr(error))
             print('error when generating input')
         
         try:
             with torch.no_grad():
                 result = clf(x)
-        except:
+        except Exception as error:
+            print('Caught this error: ' + repr(error))
             print('error when returing results for prediction')
             
         return result
