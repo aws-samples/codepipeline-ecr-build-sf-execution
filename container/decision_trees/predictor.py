@@ -128,6 +128,11 @@ def transformation():
     print(data.head() )
     print(type(data))
     print('############4')
+    print('start')
+    print(len(data[0]))
+    for x in range(len(data[0])):
+        print(x)
+    
     print('aaa')
     print('Invoked with {} records'.format(data.shape[0]))
 
