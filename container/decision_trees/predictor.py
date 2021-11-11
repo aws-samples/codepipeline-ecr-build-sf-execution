@@ -55,9 +55,11 @@ class ScoringService(object):
         except:
             print('did not get the model')
         
+        print('@@@@@@@@@@@@@@@@@@@')
         print(input)
         print(input[0])
         print(input[1])
+        print('@@@@@@@@@@@@@@@@@@@')
         
         
         test_input=[[2779, 4496, 1744, 3480,  674,   24,   24,   24,   24,   24,   24,
@@ -116,6 +118,7 @@ def transformation():
 
     print('aaa')
     print(data)
+    print(data[0])
     print('aaa')
     print('Invoked with {} records'.format(data.shape[0]))
 
