@@ -116,9 +116,16 @@ def transformation():
     else:
         return flask.Response(response='This predictor only supports CSV data', status=415, mimetype='text/plain')
 
+    
+    print('#############")
     print('aaa')
+    print('#############1")
     print(data)
+    print('#############2")
     print(data[0])
+    print('#############3")
+    print(type(data))
+    print('############4")
     print('aaa')
     print('Invoked with {} records'.format(data.shape[0]))
 
