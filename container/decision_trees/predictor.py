@@ -56,6 +56,7 @@ class ScoringService(object):
             print('did not get the model')
         
         print('@@@@@@@@@@@@@@@@@@@')
+        print(type(input))
         print(input)
         print(input[0])
         print(input[1])
