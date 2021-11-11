@@ -56,6 +56,9 @@ class ScoringService(object):
             print('did not get the model')
         
         print(input)
+        print(input[0])
+        print(input[1])
+        
         
         test_input=[[2779, 4496, 1744, 3480,  674,   24,   24,   24,   24,   24,   24,
           24,   24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
