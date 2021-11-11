@@ -124,6 +124,7 @@ def transformation():
     print('#############2')
     print(data[0])
     print('#############3')
+    print(data.head() )
     print(type(data))
     print('############4')
     print('aaa')
