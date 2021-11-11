@@ -71,7 +71,7 @@ class ScoringService(object):
         
         try:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-            x=torch.from_numpy(np.array(test_input)).to(device)
+            x=torch.from_numpy(np.array(input)).to(device)
         except Exception as error:
             print('Caught this error: ' + repr(error))
             print('error when generating input')
