@@ -307,7 +307,6 @@ def train():
         target_torch = torch.from_numpy(np.array(label_train)).view(-1).to(device)
 
         # range(total_epoch)
-        
         for epoch in range(1):
 
             model.train()
