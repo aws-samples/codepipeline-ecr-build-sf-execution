@@ -3,24 +3,44 @@
 # for serving inferences in a stable way.
 
 FROM public.ecr.aws/lts/ubuntu:20.04
+RUN apt update
+RUN apt install -y software-properties-common
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt install -y python3.7
+
+# install pip 
+RUN apt install -y python3-pip
+
+RUN apt-get install -y --no-install-recommends nginx ca-certificates
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN python3.7 -m pip install langid
+RUN python3.7 -m pip install langdetect
+RUN python3.7 -m pip install emoji
+RUN python3.7 -m pip install nltk==3.2.5
+RUN python3.7 -m pip install pandas==1.1.5
+RUN python3.7 -m pip install numpy==1.19.5
+RUN python3.7 -m pip install torch
+RUN python3.7 -m pip install transformers
+RUN python3.7 -m pip install flask
+#previos versions for package gevent and gunicorn
+#RUN python3.7 -m pip install gevent==1.5.0
+#RUN python3.7 -m pip install gunicorn
+
+#RUN python3.7 -m pip install gevent==1.3.4
+#RUN python3.7 -m pip install gunicorn==19.9.0
 
 
-RUN apt-get -y update && apt-get install -y --no-install-recommends \
-         wget \
-         python \
-         nginx \
-         ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+#RUN python3.7 -m pip install gevent==20.6.2
+#RUN python3.7 -m pip install gunicorn==20.0.4
 
-# Here we get all python packages.
-# There's substantial overlap between scipy and numpy that we eliminate by
-# linking them together. Likewise, pip leaves the install caches populated which uses
-# a significant amount of space. These optimizations save a fair amount of space in the
-# image, which reduces start up time.
-RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py && python get-pip.py && \
-    pip install numpy==1.16.2 scipy==1.2.1 scikit-learn==0.20.2 pandas flask gevent gunicorn && \
-        (cd /usr/local/lib/python2.7/dist-packages/scipy/.libs; rm *; ln ../../numpy/.libs/* .) && \
-        rm -rf /root/.cache
+RUN python3.7 -m pip install gevent==20.9.0
+RUN python3.7 -m pip install gunicorn==20.0.4
+
+RUN python3.7 -m pip install sklearn
+RUN python3.7 -m pip install gensim
+RUN python3.7 -m pip install xlrd
+RUN python3.7 -m pip install openpyxl
 
 # Set some environment variables. PYTHONUNBUFFERED keeps Python from buffering our standard
 # output stream, which means that logs can be delivered to the user quickly. PYTHONDONTWRITEBYTECODE
@@ -37,4 +57,3 @@ WORKDIR /opt/program
 
 RUN chmod +x /opt/program/train
 RUN chmod +x /opt/program/serve
-

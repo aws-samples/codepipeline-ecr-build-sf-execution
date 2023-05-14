@@ -1,22 +1,22 @@
 [
     {
       "ParameterKey": "GitHubRepo",
-      "ParameterValue": "codepipeline-ecr-build-sf-execution"
+      "ParameterValue": "enter cloned repo name here for codepipeline-ecr-build-sf-execution"
     },
     {
         "ParameterKey": "GitHubBranch",
-        "ParameterValue": "master"
-      },
-      {
-        "ParameterKey": "GitHubToken",
-        "ParameterValue": ""
-      },
-      {
-        "ParameterKey": "GitHubUser",
-        "ParameterValue": ""
-      },
-      {
-        "ParameterKey": "MlOpsStepFunctionArn",
-        "ParameterValue": ""
-      }
+        "ParameterValue": "enter branch - main or xxx"
+    },
+    {
+      "ParameterKey": "GitHubToken",
+      "ParameterValue": "enter github token here"
+    },
+    {
+      "ParameterKey": "GitHubUser",
+      "ParameterValue": "enter github user here"
+    },
+    {
+      "ParameterKey": "MlOpsStepFunctionArn",
+      "ParameterValue": "enter MLOpsStep Functions Arn here"
+    }
 ]
