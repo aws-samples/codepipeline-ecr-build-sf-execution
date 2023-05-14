@@ -104,7 +104,10 @@ Resources:
             pre_build:
               commands:
                 - printenv | less
-                - $(aws ecr get-login --no-include-email)
+                - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)                
+                - ECR_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+                - echo "ECR_URI=${ECR_URI}"
+                - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_URI}
                 - dt=`date '+%m-%d-%Y-%H-%M-%S'`
                 - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)-${dt}"                
                 - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
@@ -122,7 +125,8 @@ Resources:
             files: sf_start_params.json
       Environment:
         ComputeType: BUILD_GENERAL1_SMALL
-        Image: aws/codebuild/docker:17.09.0
+        Image: aws/codebuild/standard:7.0
+        PrivilegedMode: true
         Type: LINUX_CONTAINER
         EnvironmentVariables:
           - Name: AWS_DEFAULT_REGION
